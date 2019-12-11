@@ -24,13 +24,37 @@ if __name__ == '__main__':
 
     api = Client()
 
-    if args.search == 'shop':
+    if args.search == 'users':
+        #  python examples/search.py -k "zahrasydl" -s users
+        #  python examples/search.py -k "kevin" -s users
         result = api.search_users(keyword=args.keyword)
+        
+        users = result.get('data').get('users')
+        if users:
+            # pp.pprint(users[0])
+            if len(users) == 1:
+                user = users[0]
+                print('Shop ID: {}'.format(user.get('shopid')))
+                print('Username: {}'.format(user.get('username')))
+                
+                print('Fetching shop items..\n\n')
+                result = api.search_items(page_type='shop', match_id=user.get('shopid'),)
+                items = result.get('items', [])
+                
+                pp.pprint(["Name: {}".format(i['name']) for i in items])
+            else:
+                pp.pprint(["Shop name: {}".format(user.get('shopname')) for user in users])
+                
+        else:
+            print('User not found')
+            
+        
     elif args.search == 'items':
+        #  python examples/search.py -k "iphone x" -s items
         result = api.search_items(page_type='search',keyword=args.keyword, limit=5)
         items = result.get('items', [])
         
-        pp.pprint([api.imageUrl(i['image']) for i in items])
+        pp.pprint(["Name: {}".format(i['name']) for i in items])
 
     print('All ok')
 
