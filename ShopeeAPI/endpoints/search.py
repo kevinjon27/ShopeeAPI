@@ -1,4 +1,23 @@
-class SearchItemsEndpointsMixin(object):
+class SearchEndpointsMixin(object):
+    def search_users(self, keyword, limit=5, **kwargs):
+        """
+        :param keyword: Example: 'redmi note 7'
+        :param limit: Default: 5
+        :param kwargs: See below
+        :Keyword Arguments:
+            - **official_only**: value: `true` or `false`
+        :return:
+        """
+
+        query = {
+            'keyword': keyword,
+            'limit': limit,
+        }
+
+        query.update(kwargs)
+        
+        return self._call_api("search_users/", query=query, version="v2")
+
     def search_items(self, page_type, by='relevancy', order_by='desc', newest=0, limit=20, **kwargs):
         """
         :param page_type: Example: 'shop', 'search'

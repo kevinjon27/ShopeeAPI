@@ -15,6 +15,7 @@ except ImportError:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Shopee demo')
     parser.add_argument('-k', '--keyword', dest='keyword', type=str, required=True)
+    parser.add_argument('-s', '--search', dest='search', type=str, required=True)
 
     args = parser.parse_args()
 
@@ -23,14 +24,14 @@ if __name__ == '__main__':
 
     api = Client()
 
-    # print(api.imageUrl('ab166bb8de36b075b64921'))
+    if args.search == 'shop':
+        result = api.search_users(keyword=args.keyword)
+    elif args.search == 'items':
+        result = api.search_items(page_type='search',keyword=args.keyword, limit=5)
+        items = result.get('items', [])
+        
+        pp.pprint([api.imageUrl(i['image']) for i in items])
 
-    result = api.search_items(page_type='search',keyword=args.keyword, limit=2)
-    # print("\n\n\n\n\n")
-    pp.pprint(result)
+    print('All ok')
 
 
-
-
-def clear(self):
-    os.system('cls' if os.name == 'nt' else 'clear')

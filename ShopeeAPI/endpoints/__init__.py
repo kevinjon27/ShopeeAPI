@@ -1,1 +1,1 @@
-from .search_items import SearchItemsEndpointsMixin
+from .search import SearchEndpointsMixin

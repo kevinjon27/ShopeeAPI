@@ -12,13 +12,13 @@ from .compat import (
     compat_http_client)
 
 from .endpoints import (
-    SearchItemsEndpointsMixin
+    SearchEndpointsMixin
 )
 
 logger = logging.getLogger(__name__)
 
 
-class Client(SearchItemsEndpointsMixin, Utils, object):
+class Client(SearchEndpointsMixin, Utils, object):
     def __init__(self, **kwargs):
         """
         :param kwargs: See below
