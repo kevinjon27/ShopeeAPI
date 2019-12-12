@@ -25,6 +25,7 @@ if __name__ == '__main__':
     api = Client()
 
     if args.search == 'users':
+        #  Example command:
         #  python examples/search.py -k "zahrasydl" -s users
         #  python examples/search.py -k "kevin" -s users
         result = api.search_users(keyword=args.keyword)
@@ -50,6 +51,7 @@ if __name__ == '__main__':
             
         
     elif args.search == 'items':
+        #  Example command:
         #  python examples/search.py -k "iphone x" -s items
         result = api.search_items(page_type='search',keyword=args.keyword, limit=5)
         items = result.get('items', [])
